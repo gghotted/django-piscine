@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>ex00</title>
+    </head>
+    <body>
+        <h1>이력서</h1>
+        <h2>인적사항</h2>
+        <ul>
+            <li>이름: {name}</li>
+            <li>성별: {gender}</li>
+            <li>나이: {age}</li>
+            <li>현직: {job}</li>
+            <li>기술: c/c++, python, django</li>
+            <li>진로: django 개발자</li>
+        </ul>
+    </body>
+</html>
