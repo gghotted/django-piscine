@@ -49,7 +49,7 @@ class Img(SimpleElem):
 
 class Table(DoubleElem):
     def is_valid(self):
-        return all(child.__class__ for child in self.content)
+        return all(child.__class__ == Tr for child in self.content)
 
 
 class Th(DoubleElem):
@@ -59,11 +59,9 @@ class Th(DoubleElem):
 
 
 class Tr(DoubleElem):
-    '''
-    Tr must contain at least one Th or Td and only some Th or Td. The Th and the Td must be mutually exclusive
-    Tr은 적어도 한 개 이상의 Th 또는 Td만을 가져야 하며, Th와 Td 끼리는 상호 배타적 (Mutually Exclusive)이어야 합니다.
-    '''
-    pass
+    def is_valid(self):
+        return len(self.content) >= 1 and \
+               {child.__class__ for child in self.content} in ({Th}, {Td})
 
 
 class Td(DoubleElem):
@@ -111,8 +109,9 @@ class P(DoubleElem):
 
 class Div(DoubleElem):
     def is_valid(self):
-        return {child.__class__ for child in self.content} in \
-               {H1, H2, Div, Table, Ul, Ol, Span, Text}
+        return {child.__class__ for child in self.content}.issubset(
+            {H1, H2, Div, Table, Ul, Ol, Span, Text}
+        )
 
 
 class Span(DoubleElem):
