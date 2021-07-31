@@ -1,0 +1,19 @@
+{% extends 'ex01/base/base.html' %}
+{% load static %}
+
+{% block title %} Ex01: Display process of a static page. {% endblock %}
+
+{% block style %}
+<link rel="stylesheet" type="text/css" href="{% static 'ex01/css/style1.css' %}">
+{% endblock %}
+
+{% block content %}
+<h1>Django</h1>
+
+<h2>정적 페이지 처리 과정</h2>
+<ol>
+    <li>클라이언트로 부터 요청</li>
+    <li>django 등록된 urlpattern에 매칭</li>
+    <li>매칭된 file 응답</li>
+</ol>
+{% endblock %}

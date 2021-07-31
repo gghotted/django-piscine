@@ -1,0 +1,31 @@
+{% extends 'ex01/base/base.html' %}
+{% load static %}
+
+{% block title %} Ex01: Template engine. {% endblock %}
+
+{% block style %}
+<link rel="stylesheet" type="text/css" href="{% static 'ex01/css/style2.css' %}">
+{% endblock %}
+
+{% block content %}
+<h1>Django</h1>
+
+<h2>동적 페이지 처리 과정</h2>
+<ol>
+    <li>클라이언트로 부터 요청</li>
+    <li>django 등록된 urlpattern에 매칭</li>
+    <li>매칭된 로직(view)으로 데이터(model)를 활용하여 응답 html(template)을 만듬</li>
+    <li>결과물 응답</li>
+</ol>
+
+<h2>django template engine</h2>
+<p>
+    html파일을 동적으로 만들기위한 것으로 engine 문법을 활용해 동적인 데이터, 및 구조를 생성할 수 있다.
+    <ul>
+        <li>block: 반복되는 html코드를 재사용하기 위해 다른 html을 가져와 사용할수 있도록 한다.</li>
+        <li>for loop: 반복되는 html구조를 for loop를 통해 간결하게 생성할 수 있다.</li>
+        <li>if: 조건에 따라 동적으로 구조를 생성할 수 있다.</li>
+        <li>context: view로 부터 전달된 data를 사용하여 작성할 수 있다.</li>
+    </ul>
+</p>
+{% endblock %}

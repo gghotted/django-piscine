@@ -1,0 +1,31 @@
+{% extends 'ex01/base/base.html' %}
+{% load static %}
+
+{% block title %} Ex01: Django, framework web. {% endblock %}
+
+{% block style %}
+<link rel="stylesheet" type="text/css" href="{% static 'ex01/css/style1.css' %}">
+{% endblock %}
+
+{% block content %}
+<h1>Django</h1>
+
+<a href="https://namu.wiki/w/Django"><h2>소개</h2></a>
+<p>
+    Django는 2005년부터 시작된 Python의 오픈 소스 웹 프레임워크이자 풀 스택 프레임워크이다.<br>
+
+    Django의 발음 기호는 [ˈdʒæŋɡoʊ]로 쟁고 정도로 읽으면 된다. 참고로 D는 묵음이다. 대한민국에서는 장고로 읽는데, 동명의 서부극 영화 때문에 종종 한글 표기를 '쟝고'로 쓰기도 한다.<br>
+
+    Django 소프트웨어 재단은 소셜 댓글 서비스 디스커스(Disqus)를 만든 곳이기도 하다. Python을 이용해 제작한다.<br>
+
+    Django는 Python 기반 웹 프레임워크 중에 가장 널리 퍼져있다. 일반적으로 파이썬을 웹 서비스에 쓴다고 하면 Django 또는 Flask를 쓴다고 생각하면 된다. 둘의 차이는 풀 스택 프레임워크(Django)냐 아니냐 정도.<br>
+
+    MVT[1] 패턴에서 Model의 경우 데이터베이스와 연동이 편하게 만들어져 있다.<br>
+    기본적으로 Model에 해당하는 DBMS는 SQLite를 사용하게 되어있으며, Django Admin 기능을 통해 쉽게 조회/편집이 가능하다.[2]<br>
+</p>
+
+<h2>역사</h2>
+<p>
+    장고는 2003~2004년에 로렌스 저널-월드(Lawrence Journal-World)라는 신문사의 인턴 웹 프로그래머였던 에이드리안 홀로바티(Adrian Holovaty)와 사이먼 윌리슨(Simon Willison)이 파이썬을 이용해 애플리케이션을 만들기 시작하면서 처음 개발되었다.
+</p>
+{% endblock %}
