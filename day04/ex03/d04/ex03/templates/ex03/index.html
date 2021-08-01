@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>ex03</title>
+        <meta charset="utf-8" />
+    </head>
+    <body>
+        <table>
+            <tr>
+                {% for color in colors_title %}
+                <th>{{color}}</th>
+                {% endfor %}
+            </tr>
+                {% for row in colors_rows %}
+                <tr>
+                    {% for col in row %}
+                    <td style="width: 80px; height: 40px; background-color: rgb{{col}};">
+                    </td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+        </table>
+    </body>
+</html>
