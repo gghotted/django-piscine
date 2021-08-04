@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Init</title>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        {% if success %}
+        <h1>OK</h1>
+        {% else %}
+        <h1>{{error_msg}}</h1>
+        {% endif %}
+
+        {% if data %}
+        <table>
+            <tr>
+                {% for key in data.keys %}
+                <th>{{key.name}}</th>
+                {% endfor %}
+            </tr>
+            {% for row in data.rows %}
+            <tr>
+                {% for col in row %}
+                <td style="padding: 10px;">{{col}}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
+        {% endif %}
+    </body>
+</html>
