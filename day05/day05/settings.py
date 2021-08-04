@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'ex00'
+    'ex00',
+    'ex01'
 ]
 
 MIDDLEWARE = [
@@ -76,11 +77,12 @@ WSGI_APPLICATION = 'day05.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'djangotraining',
+        'USER': 'djangouser',
+        'PASSWORD': 'secret',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
