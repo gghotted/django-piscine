@@ -21,7 +21,7 @@ class InitView(TemplateView):
             'database': 'djangotraining',
         }
         sql = '''
-        CREATE TABLE IF NOT EXISTS ex00_movies (
+        CREATE TABLE ex00_movies (
             title varchar(64) UNIQUE NOT NULL,
             episode_nb integer PRIMARY KEY,
             opening_crawl text,
