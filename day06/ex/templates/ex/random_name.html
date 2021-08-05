@@ -5,6 +5,14 @@
         <meta charset="utf-8">
     </head>
     <body>
-        <nav>Hello {{request.session.name}}!</nav>
+        <nav>
+            <a href="{% url 'home' %}">
+                {% if request.user.is_authenticated %}
+                Hello {{request.user.username}}!
+                {% else %}
+                Hello {{request.session.name}}!
+                {% endif %}
+            </a>
+        </nav>
     </body>
 </html>

@@ -1,0 +1,17 @@
+{% extends 'ex/base.html' %}
+{% load bootstrap3 %}
+
+{% block title %} Home {% endblock %}
+
+{% block content %}
+{% if request.user.is_authenticated %}
+    {% url 'logout' as url %}
+    {% bootstrap_button "로그아웃" button_class="btn-primary" href=url %}
+{% else %}
+    {% url 'signup' as url %}
+    {% bootstrap_button "회원가입" button_class="btn-primary" href=url %}
+
+    {% url 'login' as url %}
+    {% bootstrap_button "로그인" button_class="btn-primary" href=url %}
+{% endif %}
+{% endblock %}
