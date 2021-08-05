@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'ex'
 ]
 
 MIDDLEWARE = [
@@ -123,3 +124,20 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+SESSION_COOKIE_AGE = 42
+
+SESSION_SAVE_EVERY_REQUEST = False
+
+RANDOM_NAMES = (
+    'gypark',
+    'hyeojung',
+    'dcho',
+    'jolim',
+    'junmkang',
+    'haseo',
+    'ysong',
+    'shchoi',
+    'dongbkim',
+    'jinbekim'
+)
