@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Init</title>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        {% if success %}
+        <h1>OK</h1>
+        {% else %}
+        <h1>{{error_msg | linebreaksbr}}</h1>
+        {% endif %}
+
+        {% if objects %}
+        <table>
+            <tr>
+                <th>name</th>
+                <th>world</th>
+                <th>world climate</th>
+            </tr>
+            {% for obj in objects %}
+            <tr>
+                <td style="padding: 10px;">{{obj.name}}</td>
+                <td style="padding: 10px;">{{obj.homeworld}}</td>
+                <td style="padding: 10px;">{{obj.homeworld.climate}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% endif %}
+    </body>
+</html>
