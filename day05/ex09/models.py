@@ -3,7 +3,7 @@ from django.db.models.fields import TextField
 
 
 class Planets(models.Model):
-    name = models.CharField(max_length=64)
+    name = models.CharField(max_length=64, unique=True)
     climate = models.TextField(null=True)
     diameter = models.IntegerField(null=True)
     orbital_period = models.IntegerField(null=True)
@@ -19,7 +19,7 @@ class Planets(models.Model):
 
 
 class People(models.Model):
-    name = models.CharField(max_length=64)
+    name = models.CharField(max_length=64, unique=True)
     birth_year = models.CharField(max_length=32, null=True)
     gender = models.CharField(max_length=32, null=True)
     eye_color = models.CharField(max_length=32, null=True)
