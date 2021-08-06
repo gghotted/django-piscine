@@ -4,8 +4,8 @@ from django.conf import settings
 from django.views import generic
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth import login, logout
-from .forms import SignupForm, LoginForm
-from .models import User
+from .forms import SignupForm, LoginForm, TipForm
+from .models import User, Tip
 
 
 def random_name_view(request):
@@ -23,8 +23,20 @@ def get_random_name():
     return random.sample(settings.RANDOM_NAMES, 1)[0]
 
 
-class HomeView(generic.TemplateView):
+class HomeView(generic.CreateView):
     template_name = 'ex/home.html'
+    form_class = TipForm
+    success_url = reverse_lazy('home')
+
+    def get_context_data(self, **kwargs):
+        kwargs['tips'] = Tip.objects.all()
+        return super().get_context_data(**kwargs)
+
+    def form_valid(self, form):
+        if not self.request.user.is_authenticated:
+            return redirect(reverse('login'))
+        form.instance.author = self.request.user
+        return super().form_valid(form)
 
 
 class SignupView(generic.CreateView):
@@ -65,5 +77,4 @@ class LogoutView(generic.View):
     def get(self, request):
         logout(request)
         return redirect(reverse('home'))
-
 

@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import random_name_view, HomeView, SignupView, LoginView, LogoutView
+from .views import *
 
 
 urlpatterns = [

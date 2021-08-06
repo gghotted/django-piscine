@@ -1,5 +1,6 @@
 from django import forms
-from .models import User
+from django.contrib import auth
+from .models import User, Tip
 
 # 참고 https://jinmay.github.io/2019/11/13/django/django-form-is-valid-mechanism-brief/
 class SignupForm(forms.ModelForm):
@@ -52,3 +53,9 @@ class LoginForm(forms.Form):
             self.add_error('password', 'Dose not matched')
 
         return cleaned_data
+
+
+class TipForm(forms.ModelForm):
+    class Meta:
+        model = Tip
+        fields = ['content']

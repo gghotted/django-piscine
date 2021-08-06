@@ -4,6 +4,7 @@
 {% block title %} Home {% endblock %}
 
 {% block content %}
+{% comment %} buttons {% endcomment %}
 {% if request.user.is_authenticated %}
     {% url 'logout' as url %}
     {% bootstrap_button "로그아웃" button_class="btn-primary" href=url %}
@@ -13,5 +14,23 @@
 
     {% url 'login' as url %}
     {% bootstrap_button "로그인" button_class="btn-primary" href=url %}
+{% endif %}
+
+{% comment %} tips {% endcomment %}
+{% if tips %}
+    {% include 'ex/tip_list.html' with tips=tips %}
+{% else %}
+    <p>등록된 tip이 없습니다.</p>
+{% endif %}
+
+{% comment %} create_form {% endcomment %}
+{% if request.user.is_authenticated %}
+
+    <form method="POST">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% bootstrap_button "저장" button_type="submit" button_class="btn-primary" %}
+    </form>
+    {% bootstrap_form_errors form %}
 {% endif %}
 {% endblock %}

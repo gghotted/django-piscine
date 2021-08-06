@@ -1,0 +1,19 @@
+{% load bootstrap3 %}
+<table class="table">
+    <thead>
+        <tr>
+            <th>date</th>
+            <th>author</th>
+            <th>content</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for tip in tips %}
+        <tr>
+            <td>{{tip.date}}</td>
+            <td>{{tip.author}}</td>
+            <td>{{tip.content}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
