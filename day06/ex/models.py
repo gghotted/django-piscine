@@ -13,6 +13,11 @@ class Tip(models.Model):
     like = models.ManyToManyField(User, related_name='likes')
     hate = models.ManyToManyField(User, related_name='hates')
 
+    class Meta:
+        permissions = (
+            ('hate_tip', 'Can hate tip'),
+        )
+
     def add_tmp_attr(self, user):
         self.like_pressed = user in self.like.all()
         self.hate_pressed = user in self.hate.all()
@@ -45,6 +50,10 @@ class Tip(models.Model):
     @property
     def deleteable(self):
         return self.user.has_perm('ex.delete_tip') or self.author == self.user
+
+    @property
+    def hateable(self):
+        return self.user.has_perm('ex.hate_tip') or self.author == self.user
 
 
 def addusers(queryset, user, attrname='user'):
