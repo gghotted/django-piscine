@@ -5,7 +5,7 @@ from django.views import generic
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth import login, logout
 from .forms import SignupForm, LoginForm, TipForm
-from .models import User, Tip
+from .models import User, Tip, addusers
 from django.core.exceptions import PermissionDenied
 
 
@@ -30,8 +30,7 @@ class HomeView(generic.CreateView):
     success_url = reverse_lazy('home')
 
     def get_context_data(self, **kwargs):
-        tips = Tip.objects.all()
-        kwargs['tips'] = map(lambda tip: tip.add_tmp_attr(self.request.user), tips)
+        kwargs['tips'] = addusers(Tip.objects.all(), self.request.user)
         return super().get_context_data(**kwargs)
 
     def form_valid(self, form):
@@ -122,9 +121,13 @@ class TipHateView(generic.View):
 class TipDeleteView(generic.DeleteView):
     model = Tip
     success_url = reverse_lazy('home')
+    http_method_names = ['post']
 
     def get_object(self, queryset=None):
         obj = super().get_object(queryset=queryset)
-        if obj.author != self.request.user:
+
+        # https://heiswed.tistory.com/entry/%EC%9E%A5%EA%B3%A0Django-%EA%B0%9C%EB%B0%9C-%EA%B6%8C%ED%95%9Cpermission-%ED%99%94%EB%A9%B4-%EA%B4%80%EB%A6%AC
+        obj.user = self.request.user
+        if not obj.deleteable():
             raise PermissionDenied('Not allowed user')
         return obj

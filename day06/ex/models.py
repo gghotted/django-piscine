@@ -19,4 +19,37 @@ class Tip(models.Model):
 
         self.like_description = f'({self.like.count()})추천'
         self.hate_description = f'({self.hate.count()})비추천'
+
+        self.deleteable = self.deleteable_by(user)
         return self
+
+    @property
+    def like_description(self):
+        return f'({self.like.count()})추천'
+
+    @property
+    def hate_description(self):
+        return f'({self.hate.count()})비추천'
+
+    '''
+    user required properties: add attr user before call property
+    '''
+    @property
+    def like_pressed(self):
+        return self.user in self.like.all()
+
+    @property
+    def hate_pressed(self):
+        return self.user in self.hate.all()
+
+    @property
+    def deleteable(self):
+        return self.user.has_perm('ex.delete_tip') or self.author == self.user
+
+
+def addusers(queryset, user, attrname='user'):
+    def adduser(obj):
+        setattr(obj, attrname, user)
+        return obj
+
+    return map(adduser, queryset)

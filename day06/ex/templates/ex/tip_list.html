@@ -22,7 +22,7 @@
                 {% url 'tip_hate' tip.pk as url %}
                 {% include 'ex/postbtn.html' with name=tip.hate_description url=url active=tip.hate_pressed %}
 
-                {% if request.user == tip.author %}
+                {% if tip.deleteable %}
                     {% url 'tip_delete' tip.pk as url %}
                     {% include 'ex/postbtn.html' with addclass="btn-danger" name='삭제' url=url %}
                 {% endif %}
