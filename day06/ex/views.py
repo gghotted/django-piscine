@@ -1,11 +1,12 @@
 import random
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.conf import settings
 from django.views import generic
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth import login, logout
 from .forms import SignupForm, LoginForm, TipForm
 from .models import User, Tip
+from django.core.exceptions import PermissionDenied
 
 
 def random_name_view(request):
@@ -29,7 +30,8 @@ class HomeView(generic.CreateView):
     success_url = reverse_lazy('home')
 
     def get_context_data(self, **kwargs):
-        kwargs['tips'] = Tip.objects.all()
+        tips = Tip.objects.all()
+        kwargs['tips'] = map(lambda tip: tip.add_tmp_attr(self.request.user), tips)
         return super().get_context_data(**kwargs)
 
     def form_valid(self, form):
@@ -78,3 +80,51 @@ class LogoutView(generic.View):
         logout(request)
         return redirect(reverse('home'))
 
+
+class TipLikeView(generic.View):
+    def post(self, request, *args, **kwargs):
+        pk = kwargs['pk']
+        tip = get_object_or_404(Tip, pk=pk)
+        user = request.user
+
+        if not user.is_authenticated:
+            raise PermissionDenied('Not allowed user')
+
+        # like 는 User.objects
+        if tip.like.filter(username=user.username).exists():
+            tip.like.remove(user)
+        else:
+            tip.like.add(user)
+            tip.hate.remove(user)
+
+        return redirect(reverse('home'))
+
+
+class TipHateView(generic.View):
+    def post(self, request, *args, **kwargs):
+        pk = kwargs['pk']
+        tip = get_object_or_404(Tip, pk=pk)
+        user = request.user
+
+        if not user.is_authenticated:
+            raise PermissionDenied('Not allowed user')
+
+        # hate 는 User.objects
+        if tip.hate.filter(username=user.username).exists():
+            tip.hate.remove(user)
+        else:
+            tip.hate.add(user)
+            tip.like.remove(user)
+
+        return redirect(reverse('home'))
+
+
+class TipDeleteView(generic.DeleteView):
+    model = Tip
+    success_url = reverse_lazy('home')
+
+    def get_object(self, queryset=None):
+        obj = super().get_object(queryset=queryset)
+        if obj.author != self.request.user:
+            raise PermissionDenied('Not allowed user')
+        return obj

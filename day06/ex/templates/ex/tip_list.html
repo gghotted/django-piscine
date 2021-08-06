@@ -13,6 +13,21 @@
             <td>{{tip.date}}</td>
             <td>{{tip.author}}</td>
             <td>{{tip.content}}</td>
+
+            {% if user.is_authenticated %}
+            <td>
+                {% url 'tip_like' tip.pk as url %}
+                {% include 'ex/postbtn.html' with name=tip.like_description url=url active=tip.like_pressed %}
+
+                {% url 'tip_hate' tip.pk as url %}
+                {% include 'ex/postbtn.html' with name=tip.hate_description url=url active=tip.hate_pressed %}
+
+                {% if request.user == tip.author %}
+                    {% url 'tip_delete' tip.pk as url %}
+                    {% include 'ex/postbtn.html' with addclass="btn-danger" name='삭제' url=url %}
+                {% endif %}
+            </td>
+            {% endif %}
         </tr>
         {% endfor %}
     </tbody>

@@ -18,7 +18,7 @@
 
 {% comment %} tips {% endcomment %}
 {% if tips %}
-    {% include 'ex/tip_list.html' with tips=tips %}
+    {% include 'ex/tip_list.html' with tips=tips user=request.user %}
 {% else %}
     <p>등록된 tip이 없습니다.</p>
 {% endif %}

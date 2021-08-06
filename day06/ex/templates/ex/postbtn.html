@@ -1,0 +1,15 @@
+{% load bootstrap3 %}
+
+<form action="{{url}}" method="post" class="form-inline">
+    {% csrf_token %}
+    <div class="form-group">
+        <div class="input-group">
+            <span class="input-group-btn">
+            <button class="btn {{addclass}} {% if active %}btn-primary{% endif %}"
+                    type="submit">
+                    {{name}}
+            </button>
+            </span>
+        </div>
+    </div>
+</form>
